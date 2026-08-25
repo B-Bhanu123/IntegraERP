@@ -10,8 +10,11 @@ export class FinancialLedgerTableComponent {
             <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff;">General Ledger Chart of Accounts</h2>
             <p style="font-size: 0.875rem; color: var(--text-secondary);">Real-time account balances and trial balance integrity status.</p>
           </div>
-          <div class="badge ${trialBalance.isBalanced ? 'badge-success' : 'badge-danger'}" style="font-size: 0.875rem; padding: 0.5rem 1rem;">
-            ${trialBalance.isBalanced ? '✓ DOUBLE-ENTRY BALANCED' : '⚠ UNBALANCED LEDGER'}
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="btn btn-primary" onclick="window.openCreateAccountModal()">+ Add Ledger Account</button>
+            <div class="badge ${trialBalance.isBalanced ? 'badge-success' : 'badge-danger'}" style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+              ${trialBalance.isBalanced ? '✓ DOUBLE-ENTRY BALANCED' : '⚠ UNBALANCED LEDGER'}
+            </div>
           </div>
         </div>
 
@@ -40,20 +43,24 @@ export class FinancialLedgerTableComponent {
               <th>Debit Balance</th>
               <th>Credit Balance</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            ${trialBalance.accountBalances
+            ${accounts
               .map(
                 (acc) => `
               <tr>
                 <td style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-secondary);">${acc.accountCode}</td>
-                <td style="font-weight: 600; color: #fff;">${acc.accountName}</td>
-                <td><span class="badge badge-info">${acc.accountType}</span></td>
+                <td style="font-weight: 600; color: #fff;">${acc.name}</td>
+                <td><span class="badge badge-info">${acc.type}</span></td>
                 <td>USD</td>
-                <td style="font-family: var(--font-mono);">$${acc.debitBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                <td style="font-family: var(--font-mono);">$${acc.creditBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                <td style="font-family: var(--font-mono);">$${acc.balance >= 0 ? acc.balance.toLocaleString('en-US', { minimumFractionDigits: 2 }) : '0.00'}</td>
+                <td style="font-family: var(--font-mono);">$${acc.balance < 0 ? Math.abs(acc.balance).toLocaleString('en-US', { minimumFractionDigits: 2 }) : '0.00'}</td>
                 <td><span class="badge badge-success">ACTIVE</span></td>
+                <td>
+                  <button class="btn btn-secondary btn-sm" onclick="window.openEditAccountModal('${acc.id}')">✏️ Edit</button>
+                </td>
               </tr>
             `
               )

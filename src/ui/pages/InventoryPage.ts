@@ -37,7 +37,10 @@ export class InventoryPage {
         <div class="glass-card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff;">Product Inventory & Reorder Point Status</h2>
-            <button class="btn btn-primary btn-sm" onclick="alert('Restock order generated for all items below reorder threshold!')">📦 Run Automatic Reorder Engine</button>
+            <div style="display: flex; gap: 1rem;">
+              <button class="btn btn-primary btn-sm" onclick="window.openCreateProductModal()">+ Add Product</button>
+              <button class="btn btn-secondary btn-sm" onclick="alert('Restock order generated for all items below reorder threshold!')">📦 Run Auto Reorder</button>
+            </div>
           </div>
           <table class="data-table">
             <thead>
@@ -50,6 +53,7 @@ export class InventoryPage {
                 <th>Reorder Threshold</th>
                 <th>Reorder Quantity</th>
                 <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +72,9 @@ export class InventoryPage {
                     <span class="badge ${prod.reorderPoint > 0 ? 'badge-warning' : 'badge-success'}">
                       ${prod.reorderPoint > 0 ? 'REORDER MONITOR' : 'OPTIMAL'}
                     </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary btn-sm" onclick="window.openEditProductModal('${prod.id}')">✏️ Edit</button>
                   </td>
                 </tr>
               `
