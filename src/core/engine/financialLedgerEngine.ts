@@ -1,3 +1,4 @@
+// Enhanced Trial Balance audit calculations for PR #2
 import { JournalEntry, LedgerAccount, AccountType } from '../models/finance';
 import { UUID } from '../models/types';
 
