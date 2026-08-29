@@ -1,3 +1,4 @@
+// Enhanced FSM transition hooks for PR #1
 import { TaskState, Task } from '../models/project';
 import { EntityStatus, UUID } from '../models/types';
 

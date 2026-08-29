@@ -1,3 +1,4 @@
+// Enhanced Reorder analysis algorithm for PR #3
 import { Product, StockItem } from '../models/inventory';
 
 export interface ReorderAnalysis {
