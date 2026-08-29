@@ -1,3 +1,4 @@
+// Enhanced Modal controller state handling for PR #4
 import { Task, TaskState, TaskType } from '../../core/models/project';
 import { PriorityLevel } from '../../core/models/types';
 
